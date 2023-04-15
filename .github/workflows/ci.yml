@@ -1,0 +1,10 @@
+name: 'Example ci'
+on: [push] # pull-request, fork
+# on:
+#   push:
+#     branches:
+#       - main
+#       - 'releases/**'
+#     branches-ignore:    
+#       - 'releases/**-alpha'
+    
