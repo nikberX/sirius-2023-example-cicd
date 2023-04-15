@@ -65,3 +65,29 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter build ipa --no-codesign
+  build-android-release:
+    needs: run-tests
+    runs-on: ubuntu-latest
+     if: "github.ref == 'refs/heads/release'"
+    timeout-minutes: 10
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@1
+        with: 
+          java-version: 12.x
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: "Prepare keys.jks && key.properties files"
+        env:
+          KEYSTORE_FILE: ${{ secrets.ANDROID_SIGN_KEY }}
+          KEY_PROPERTIES_FILE: ${{ secrets.ANDROID_KEY_PROPERTIES_TEST }}
+        working-directory: 'android/'
+        run: |
+          echo "Convert base64 strings to files"
+          echo "$KEYSTORE_FILE" >> upload-key.jks.base64
+          echo "$KEY_PROPERTIES_FILE" >> key.properties
+          echo "Converted files to base64"
+          base64 --decode upload-key.base64 > upload-key.jks
+          echo "Decoded files"
+        - run: flutter build apk --release
