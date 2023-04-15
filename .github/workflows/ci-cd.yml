@@ -79,3 +79,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: "Upload apk artifacts"
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
