@@ -39,6 +39,7 @@ jobs:
       - run: flutter test
   build-android:
     needs: run-tests
+    if: "!(github.ref == 'refs/heads/release')"
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps: 
