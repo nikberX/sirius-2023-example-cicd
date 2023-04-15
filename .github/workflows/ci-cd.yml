@@ -78,16 +78,3 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: "Prepare keys.jks && key.properties files"
-        env:
-          KEYSTORE_FILE: ${{ secrets.ANDROID_SIGN_KEY }}
-          KEY_PROPERTIES_FILE: ${{ secrets.ANDROID_KEY_PROPERTIES_TEST }}
-        working-directory: 'android/'
-        run: |
-          echo "Convert base64 strings to files"
-          echo "$KEYSTORE_FILE" >> upload-key.jks.base64
-          echo "$KEY_PROPERTIES_FILE" >> key.properties
-          echo "Converted files to base64"
-          base64 --decode upload-example-keystore.base64 > upload-example-key.jks
-          echo "Decoded files"
-        - run: flutter build apk --release
