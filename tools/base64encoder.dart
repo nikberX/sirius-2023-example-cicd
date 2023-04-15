@@ -12,5 +12,6 @@ void main(List<String> arguments) {
       File.fromUri(Uri.parse('${Directory.current.path}$modifiedPath'));
 
   final base64String = base64Encode(fileToEncode.readAsBytesSync());
+  // ignore: avoid_print
   print(base64String);
 }
