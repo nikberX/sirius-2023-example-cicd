@@ -22,4 +22,4 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter anlyze .
-      - run: flutter format .
+      - run: flutter format --set-exit-if-changed .
